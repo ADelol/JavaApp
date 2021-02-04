@@ -13,17 +13,21 @@ import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 @LocalBean
 public class ServicesPatientBean {
 
-    /**
-     * Default constructor. 
-     */
-    public ServicesPatientBean() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public ServicesPatientBean() {
+		// TODO Auto-generated constructor stub
+	}
 
-	public static void ajouterPatient(Patient p) {
+	public static boolean ajouterPatient(Patient p) {
 		PatientDAO dao = new PatientDAO();
-		dao.ajouterPatient(p);
-		
+		if (dao.getPatient(p.getEmailPatient()) == null) {
+			dao.ajouterPatient(p);
+			return true;
+		}
+		return false;
+
 	}
 
 }

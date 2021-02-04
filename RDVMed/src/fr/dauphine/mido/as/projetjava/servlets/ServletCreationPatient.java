@@ -56,7 +56,6 @@ public class ServletCreationPatient extends HttpServlet {
 		String patientMDP = request.getParameter("patientPrenom");
 
 		Patient p = new Patient();
-		System.out.println("patientt" + p);
 		p.setEmailPatient(patientMail);
 		p.setNOMPatient(patientNom);
 		p.setPRENOMPatient(patientPrenom);
@@ -64,13 +63,24 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setAddressHabitPatient(patientAdr);
 		p.setANNEENaissance(patientYear);
 		p.setMDPPatient(patientMDP);
-		ServicesPatientBean.ajouterPatient(p);
-		// Envoyer mail
+		boolean patientCree = ServicesPatientBean.ajouterPatient(p);
+		HttpSession session = request.getSession();
 		
-        HttpSession session = request.getSession();
-        session.setAttribute("msg", "Compte créé");
-        getServletContext().getRequestDispatcher("/Accueil.jsp")
-        .forward(request, response);
+		if(patientCree) {
+			// Envoyer mail
+	        session.setAttribute("msg", "Compte créé");
+	        getServletContext().getRequestDispatcher("/Accueil.jsp")
+	        .forward(request, response);
+		}
+		else {
+	        session.setAttribute("msg", "Compte déjà existant");
+	        System.out.println("compte deja existant");
+	        getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
+		}
+		
+		
+        
+
 
 	}
 
