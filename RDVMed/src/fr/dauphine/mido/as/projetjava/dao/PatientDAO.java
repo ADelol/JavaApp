@@ -9,21 +9,22 @@ import javax.persistence.PersistenceUnit;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 
-
 public class PatientDAO {
 
-	//@PersistenceUnit(unitName="RDVMed")
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
-	
+	private EntityManagerFactory emf;
+
+	public PatientDAO() {
+		emf = Persistence.createEntityManagerFactory("RDVMed");
+	}
+
 	public void ajouterPatient(Patient p) {
 		try {
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = em.getTransaction();
-			et.begin();
+			em.getTransaction().begin();
 			em.persist(p);
-			et.commit();
-		} catch(Exception e) {
+			em.getTransaction().commit();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -32,7 +33,7 @@ public class PatientDAO {
 		try {
 			EntityManager em = emf.createEntityManager();
 			return em.find(Patient.class, mail);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

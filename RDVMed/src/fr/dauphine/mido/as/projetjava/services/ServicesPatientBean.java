@@ -20,9 +20,10 @@ public class ServicesPatientBean {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static boolean ajouterPatient(Patient p) {
+	public boolean ajouterPatient(Patient p) {
 		PatientDAO dao = new PatientDAO();
 		if (dao.getPatient(p.getEmailPatient()) == null) {
+			System.out.println("bug ?");
 			dao.ajouterPatient(p);
 			return true;
 		}

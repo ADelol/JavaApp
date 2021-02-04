@@ -1,6 +1,8 @@
 package fr.dauphine.mido.as.projetjava.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 import fr.dauphine.mido.as.projetjava.services.ServicesPatientBean;
+import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
 
 /**
  * Servlet implementation class ServletCreationPatient
@@ -19,7 +22,7 @@ import fr.dauphine.mido.as.projetjava.services.ServicesPatientBean;
 @WebServlet("/ServletCreationPatient")
 public class ServletCreationPatient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	ServicesPatientBean servicesPatientBean;
 
@@ -47,12 +50,39 @@ public class ServletCreationPatient extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+
+		// Prepare messages.
+		Map<String, String> messages = new HashMap<String, String>();
+		request.setAttribute("messages", messages);
+
 		String patientMail = request.getParameter("emailP");
+		if (!Utilitaires.isMail(patientMail)) {
+			messages.put("mail", "Format mail incorrect");
+			System.out.println("Format mail incorrect");
+		}
 		String patientNom = request.getParameter("patientnom");
+		if (!Utilitaires.isAlpha(patientNom)) {
+			messages.put("nom", "Nom non alpha");
+			System.out.println("cnom non alpha");
+		}
 		String patientPrenom = request.getParameter("patientprenom");
+		if (!Utilitaires.isAlpha(patientPrenom)) {
+			messages.put("prenom", "Prenom non alpha");
+			System.out.println("cprenom non alpha");
+		}
 		String patientTel = request.getParameter("phoneP");
+		if (!Utilitaires.isTelNumber(patientTel)) {
+			messages.put("tel", "format tel incorrect");
+			System.out.println("format tel incorrect");
+		}
 		String patientAdr = request.getParameter("adresseP");
-		int patientYear = Integer.parseInt(request.getParameter("birthdayP"));
+		int patientYear = Integer.parseInt(request.getParameter("annee"));
+		if (!Utilitaires.isGoodDate(patientYear)) {
+			session.setAttribute("annee", "annee non correcte");
+			System.out.println("annee non correcte");
+		}
 		String patientMDP = request.getParameter("patientPrenom");
 
 		Patient p = new Patient();
@@ -63,24 +93,24 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setAddressHabitPatient(patientAdr);
 		p.setANNEENaissance(patientYear);
 		p.setMDPPatient(patientMDP);
-		boolean patientCree = ServicesPatientBean.ajouterPatient(p);
-		HttpSession session = request.getSession();
-		
-		if(patientCree) {
-			// Envoyer mail
-	        session.setAttribute("msg", "Compte créé");
-	        getServletContext().getRequestDispatcher("/Accueil.jsp")
-	        .forward(request, response);
+
+		boolean patientCree = false;
+		if (!messages.isEmpty()) {
+			patientCree = servicesPatientBean.ajouterPatient(p);
+
+			if (patientCree) {
+				// Envoyer mail
+				messages.put("creation", "Compte créé");
+				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
+			} else {
+				messages.put("existant", "Compte déjà existant");
+				System.out.println("compte deja existant");
+				getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
+			}
 		}
 		else {
-	        session.setAttribute("msg", "Compte déjà existant");
-	        System.out.println("compte deja existant");
-	        getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
 		}
-		
-		
-        
-
 
 	}
 

@@ -147,29 +147,31 @@ a:active{
 
 <div class="regD"><p class="p2">Email:<input type="text" name="emailP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Mail" /></p>
 </div>
+<span class="error">${messages.mail}</span>
 
 
 <div class="regD"><p class="p2">Nom:<input type="text" name="patientnom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre NOM" /></p>
 </div>
-
+<span class="error">${messages.nom}</span>
 <div class="regD"><p class="p2">Prenom:<input type="text" name="patientprenom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre Prenom" /></p>
 </div>
-
+<span class="error">${messages.prenom}</span>
 
 
 
 <div class="regD"><p class="p2">Telephone:<input type="text" name="phoneP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Numero de Tel" /></p>
 
 </div>
-
+<span class="error">${messages.tel}</span>
 <div class="regD"><p class="p2">Adresse:<input type="text" name="adresseP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Habitation" /></p>
 
 </div>
 
-<div class="regD"><p class="p2">Birthday:<input type="text" name="birthdayP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Date de Naissance" /></p>
+
+<div class="regD"><p class="p2">Année de naissance:<input type="text" name="annee" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Date de Naissance" /></p>
 
 </div>
-
+<span class="error">${messages.annee}</span>
 <div class="regD"><p class="p2">Password:<input type="password" name="mdpP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Mot de passe" /></p>
 
 </div>
