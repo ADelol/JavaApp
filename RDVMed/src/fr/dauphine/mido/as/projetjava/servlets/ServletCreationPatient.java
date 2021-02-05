@@ -3,8 +3,17 @@ package fr.dauphine.mido.as.projetjava.servlets;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.ejb.EJB;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +24,6 @@ import javax.servlet.http.HttpSession;
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 import fr.dauphine.mido.as.projetjava.services.ServicesPatientBean;
 import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
-
 /**
  * Servlet implementation class ServletCreationPatient
  */
@@ -80,7 +88,7 @@ public class ServletCreationPatient extends HttpServlet {
 		String patientAdr = request.getParameter("adresseP");
 		int patientYear = Integer.parseInt(request.getParameter("annee"));
 		if (!Utilitaires.isGoodDate(patientYear)) {
-			session.setAttribute("annee", "annee non correcte");
+			messages.put("annee", "annee non correcte");
 			System.out.println("annee non correcte");
 		}
 		String patientMDP = request.getParameter("patientPrenom");
@@ -95,11 +103,33 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setMDPPatient(patientMDP);
 
 		boolean patientCree = false;
-		if (!messages.isEmpty()) {
+		if (messages.isEmpty()) {
 			patientCree = servicesPatientBean.ajouterPatient(p);
 
 			if (patientCree) {
-				// Envoyer mail
+				// Envoi mail à mettre dans une classe à part ?
+				Properties properties = new Properties();
+				properties.put("mail.smtp.host", "localhost");
+				properties.put("mail.smtp.port", "25");
+				String myAccountEmail = "local@RDVMed.com";
+				Session sessionMail = Session.getInstance(properties);
+				Message message = new MimeMessage(sessionMail);
+				try {
+					message.setFrom(new InternetAddress(myAccountEmail));
+					message.setRecipient(Message.RecipientType.TO, new InternetAddress(patientMail));
+					message.setSubject("My First Email from Java App");
+					String htmlCode = "<h1> WE LOVE JAVA </h1> <br/> <h2><b>Next Line </b></h2>";
+					message.setContent(htmlCode, "text/html");
+
+					Transport.send(message);
+					System.out.println("Message sent successfully");
+				} catch (AddressException e) {
+					e.printStackTrace();
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+
+
 				messages.put("creation", "Compte créé");
 				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 			} else {
@@ -107,8 +137,7 @@ public class ServletCreationPatient extends HttpServlet {
 				System.out.println("compte deja existant");
 				getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
 			}
-		}
-		else {
+		} else {
 			getServletContext().getRequestDispatcher("/Patient/Patient_registre.jsp").forward(request, response);
 		}
 

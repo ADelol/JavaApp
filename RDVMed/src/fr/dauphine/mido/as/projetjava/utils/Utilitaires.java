@@ -20,7 +20,7 @@ public class Utilitaires {
 	public static boolean isGoodDate(int year) {
 		LocalDate currentDate = LocalDate.now();
 		int currentYear = currentDate.getYear();
-		if(currentYear - year > 120 && year < currentYear)
+		if(currentYear - year < 120 && year < currentYear)
 			return true;
 		return false;
 	}
