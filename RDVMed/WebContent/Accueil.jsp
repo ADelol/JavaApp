@@ -88,7 +88,7 @@ a:active {
 			<ul>
 				<li><a href="/RDVMed/Patient/Patient_login.jsp">PATIENT</a></li>
 				<li><a href="/RDVMed/Administrateur/Admin_login.jsp">ADMIN</a></li>
-				<li><a href="/RDVMed/Medecin/Medecin_login.jsp">DOCTOR</a></li>
+				<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Créer médecin</a></li>
 				<li><a href="/RDVMed/Patient/Patient_registre.jsp">S'INSCRIRE</a></li>
 			</ul>
 			<h1>Bienvenu! Vous etes chez DoctorHouse</h1>

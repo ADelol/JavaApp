@@ -130,7 +130,7 @@ a:active{
 
 <div class="header">
        <ul>
-       <li><a href="/RDVMed/Patient/Accueil.jsp">Accueil</a></li>
+       <li><a href="/RDVMed/Accueil.jsp">Accueil</a></li>
          <li><a href="/RDVMed/Patient/Patient_login.jsp">PATIENT</a></li>
          <li><a href="/RDVMed/Administrateur/Admin_login.jsp">ADMIN</a></li>
          <li><a href="/RDVMed/Medecin/Medecin_login.jsp">DOCTOR</a></li>
