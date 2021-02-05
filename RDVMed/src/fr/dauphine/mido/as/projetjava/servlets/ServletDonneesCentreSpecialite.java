@@ -45,7 +45,6 @@ public class ServletDonneesCentreSpecialite extends HttpServlet {
 		// TODO Auto-generated method stub
 		List<CentreMedical> centres = servicesCentreMedicalBean.getAllCentreMedical();
 		List<Specialite> specialites = servicesSpecialiteBean.getAllSpecialites();
-
 		getServletContext().getRequestDispatcher("/Medecin/Medecin_registre.jsp").forward(request, response);
 	}
 

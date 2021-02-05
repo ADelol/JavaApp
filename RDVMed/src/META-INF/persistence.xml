@@ -6,13 +6,14 @@
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.CentreMedical</class>
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.Medecin</class>
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.Patient</class>
+		<class>fr.dauphine.mido.as.projetjava.entityBeans.RendezVous</class>
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.Specialite</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projetjava"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="root"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="defaultAutoCommit" value="false"/>
+			<property name="javax.persistence.jdbc.password" value="root"/>
 		</properties>
 	</persistence-unit>
 </persistence>

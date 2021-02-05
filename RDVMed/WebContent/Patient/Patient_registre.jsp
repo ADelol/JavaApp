@@ -187,6 +187,6 @@ a:active{
 </div>
 
 </form>
-
+<span class="error">${messages.existant}</span>
 </body>
 </html>

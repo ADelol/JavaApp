@@ -2,6 +2,7 @@ package fr.dauphine.mido.as.projetjava.entityBeans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -20,6 +21,8 @@ public class Patient implements Serializable {
 
 	private int ANNEENaissance;
 
+	private String etatP;
+
 	private String MDPPatient;
 
 	private String NOMPatient;
@@ -27,6 +30,10 @@ public class Patient implements Serializable {
 	private String numTelePatient;
 
 	private String PRENOMPatient;
+
+	//bi-directional many-to-one association to RendezVous
+	@OneToMany(mappedBy="patient")
+	private List<RendezVous> rendezVouses;
 
 	public Patient() {
 	}
@@ -53,6 +60,14 @@ public class Patient implements Serializable {
 
 	public void setANNEENaissance(int ANNEENaissance) {
 		this.ANNEENaissance = ANNEENaissance;
+	}
+
+	public String getEtatP() {
+		return this.etatP;
+	}
+
+	public void setEtatP(String etatP) {
+		this.etatP = etatP;
 	}
 
 	public String getMDPPatient() {
@@ -85,6 +100,28 @@ public class Patient implements Serializable {
 
 	public void setPRENOMPatient(String PRENOMPatient) {
 		this.PRENOMPatient = PRENOMPatient;
+	}
+
+	public List<RendezVous> getRendezVouses() {
+		return this.rendezVouses;
+	}
+
+	public void setRendezVouses(List<RendezVous> rendezVouses) {
+		this.rendezVouses = rendezVouses;
+	}
+
+	public RendezVous addRendezVous(RendezVous rendezVous) {
+		getRendezVouses().add(rendezVous);
+		rendezVous.setPatient(this);
+
+		return rendezVous;
+	}
+
+	public RendezVous removeRendezVous(RendezVous rendezVous) {
+		getRendezVouses().remove(rendezVous);
+		rendezVous.setPatient(null);
+
+		return rendezVous;
 	}
 
 }

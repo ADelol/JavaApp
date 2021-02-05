@@ -2,6 +2,7 @@ package fr.dauphine.mido.as.projetjava.entityBeans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -24,6 +25,14 @@ public class CentreMedical implements Serializable {
 	private String nomCentreMedecin;
 
 	private String teleContacter;
+
+	//bi-directional many-to-many association to Medecin
+	@ManyToMany(mappedBy="centreMedicals")
+	private List<Medecin> medecins;
+
+	//bi-directional many-to-many association to Specialite
+	@ManyToMany(mappedBy="centreMedicals")
+	private List<Specialite> specialites;
 
 	public CentreMedical() {
 	}
@@ -66,6 +75,22 @@ public class CentreMedical implements Serializable {
 
 	public void setTeleContacter(String teleContacter) {
 		this.teleContacter = teleContacter;
+	}
+
+	public List<Medecin> getMedecins() {
+		return this.medecins;
+	}
+
+	public void setMedecins(List<Medecin> medecins) {
+		this.medecins = medecins;
+	}
+
+	public List<Specialite> getSpecialites() {
+		return this.specialites;
+	}
+
+	public void setSpecialites(List<Specialite> specialites) {
+		this.specialites = specialites;
 	}
 
 }

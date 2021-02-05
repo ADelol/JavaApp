@@ -101,5 +101,6 @@ a:active {
 		passe:<input type="password" name="password" /><br /> <br /> <input
 			type="submit" />"
 	</form>
+	<span class="info">${messages.info}</span>
 </body>
 </html>

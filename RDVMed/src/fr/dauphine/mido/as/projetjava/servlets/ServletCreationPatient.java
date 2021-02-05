@@ -102,6 +102,7 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setAddressHabitPatient(patientAdr);
 		p.setANNEENaissance(patientYear);
 		p.setMDPPatient(patientMDP);
+		p.setEtatP("Actif");
 
 		boolean patientCree = false;
 		if (messages.isEmpty()) {
@@ -132,7 +133,7 @@ public class ServletCreationPatient extends HttpServlet {
 				}
 
 
-				messages.put("creation", "Compte créé");
+				messages.put("info", "Compte créé");
 				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 			} else {
 				messages.put("existant", "Compte déjà existant");
