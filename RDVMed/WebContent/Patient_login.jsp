@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>le page Login de Patient</title>
+<title>Page de connexion</title>
 </head>
 <style>
 body {
@@ -145,10 +145,7 @@ a:active{
 <form action="login" method="post">
 <div class="header">
         <ul>
-         <li><a href="/PriseRDVMed/Patient/Patient_login.jsp">PATIENT</a></li>
-         <li><a href="/PriseRDVMed/Administrateur/Admin_login.jsp">ADMIN</a></li>
-         <li><a href="/PriseRDVMed/Medecin/Medecin_login.jsp">DOCTOR</a></li>
-         <li><a href="/PriseRDVMed/Patient/Patient_registre.jsp">S'INSCRIRE</a></li>
+         <li><a href="/PriseRDVMed/Patient/Patient_registre.jsp">S'enregistrer</a></li>
 		</ul>
 		
     </div>
@@ -169,8 +166,7 @@ a:active{
 
 	 <div class="logBar">
 	    <a class="ins" href="/PriseRDVMed/Patient/Patient_registre.jsp"> S'inscrire</a>
-		<a class="forget" href="javascript:if(confirm('Voulez-vous recevoir le nouveau mot de passe par mail?'))location='Acceuil.html'">mot de passe oublie</a>
-	 </div>
+		 </div>
 	 </div>
 </form>
 </body>

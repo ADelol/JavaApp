@@ -1,5 +1,7 @@
 package fr.dauphine.mido.as.projetjava.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -23,11 +25,12 @@ public class MedecinDAO {
 		}
 	}
 
-	public Medecin getMedecin(String mail) {
+	public List<Medecin> getMedecin(String mail) {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			return em.find(Medecin.class, mail);
+			return em.createQuery("SELECT m FROM Medecin m where m.EMAIL_Medecin = :mail")
+                    .setParameter("mail", mail).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -29,6 +29,8 @@ public class RendezVous implements Serializable {
 	@Column(name="HEURE_FIN")
 	private Time heureFin;
 
+	private String raison_annule;
+
 	//bi-directional many-to-one association to Medecin
 	@ManyToOne
 	@JoinColumn(name="ID_UserM")
@@ -80,6 +82,14 @@ public class RendezVous implements Serializable {
 
 	public void setHeureFin(Time heureFin) {
 		this.heureFin = heureFin;
+	}
+
+	public String getRaison_annule() {
+		return this.raison_annule;
+	}
+
+	public void setRaison_annule(String raison_annule) {
+		this.raison_annule = raison_annule;
 	}
 
 	public Medecin getMedecin() {

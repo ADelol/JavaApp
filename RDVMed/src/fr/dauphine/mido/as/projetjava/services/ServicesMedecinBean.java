@@ -5,8 +5,10 @@ import javax.ejb.Stateless;
 
 import fr.dauphine.mido.as.projetjava.dao.MedecinDAO;
 import fr.dauphine.mido.as.projetjava.dao.PatientDAO;
+import fr.dauphine.mido.as.projetjava.dao.UtilisateurDAO;
 import fr.dauphine.mido.as.projetjava.entityBeans.Medecin;
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
+import fr.dauphine.mido.as.projetjava.entityBeans.Utilisateur;
 
 /**
  * Session Bean implementation class ServicesMedecinBean
@@ -24,8 +26,15 @@ public class ServicesMedecinBean {
 
 	public boolean ajouterMedecin(Medecin m) {
 		MedecinDAO dao = new MedecinDAO();
-		if (dao.getMedecin(m.getEMAIL_Medecin()) == null) {
+		UtilisateurDAO daoU = new UtilisateurDAO();
+		if (dao.getMedecin(m.getEMAIL_Medecin()).isEmpty()) {
 			dao.ajouterMedecin(m);
+			Utilisateur u = new Utilisateur();
+			u.setUserEmail(m.getEMAIL_Medecin());
+			u.setMdp(m.getMDP_Medecin());
+			u.setUserEtat(m.getEtatM());
+			u.setUserRole("Medecin");
+			daoU.ajouterUtilisateur(u);
 			return true;
 		}
 		return false;

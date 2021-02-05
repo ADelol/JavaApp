@@ -89,7 +89,7 @@ public class ServletCreationMedecin extends HttpServlet {
 		}
 		String medecinAdr = request.getParameter("adresseP");
 
-		String medecinMDP = request.getParameter("medecinPrenom");
+		String medecinMDP = request.getParameter("mdpP");
 
 		Medecin m = new Medecin();
 		m.setEMAIL_Medecin(medecinMail);

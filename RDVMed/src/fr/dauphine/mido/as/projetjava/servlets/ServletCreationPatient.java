@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
+import fr.dauphine.mido.as.projetjava.services.ServicesMailBean;
 import fr.dauphine.mido.as.projetjava.services.ServicesPatientBean;
 import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
+
 /**
  * Servlet implementation class ServletCreationPatient
  */
@@ -34,6 +36,9 @@ public class ServletCreationPatient extends HttpServlet {
 
 	@EJB
 	ServicesPatientBean servicesPatientBean;
+	
+	@EJB
+	ServicesMailBean servicesMailBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -92,7 +97,7 @@ public class ServletCreationPatient extends HttpServlet {
 			messages.put("annee", "annee non correcte");
 			System.out.println("annee non correcte");
 		}
-		String patientMDP = request.getParameter("patientPrenom");
+		String patientMDP = request.getParameter("mdpP");
 
 		Patient p = new Patient();
 		p.setEmailPatient(patientMail);
@@ -101,6 +106,7 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setNumTelePatient(patientTel);
 		p.setAddressHabitPatient(patientAdr);
 		p.setANNEENaissance(patientYear);
+		System.out.println("MDPP ??" + patientMDP);
 		p.setMDPPatient(patientMDP);
 		p.setEtatP("Actif");
 
@@ -110,29 +116,10 @@ public class ServletCreationPatient extends HttpServlet {
 
 			if (patientCree) {
 				// Envoi mail à mettre dans une classe à part ?
-				Properties properties = new Properties();
-				properties.put("mail.smtp.host", "localhost");
-				properties.put("mail.smtp.port", "25");
-				String myAccountEmail = "local@RDVMed.com";
-				Session sessionMail = Session.getInstance(properties);
-				Message message = new MimeMessage(sessionMail);
-
-				try {
-					message.setFrom(new InternetAddress(myAccountEmail));
-					message.setRecipient(Message.RecipientType.TO, new InternetAddress(patientMail));
-					message.setSubject(MimeUtility.encodeText("Création de compte RDVMed", "utf-8", "B"));
-					String msg = "Bonjour " + patientPrenom + " , un compte a été créé avec votre email : " + patientMail;
-					message.setContent(msg,"text/plain; charset=UTF-8");
-
-					Transport.send(message);
-					System.out.println("Message sent successfully");
-				} catch (AddressException e) {
-					e.printStackTrace();
-				} catch (MessagingException e) {
-					e.printStackTrace();
-				}
-
-
+				
+				String sujet = "Création de compte RDVMed";
+				String msg = "Bonjour " + patientPrenom + " , un compte a été créé avec votre email : " + patientMail;
+				servicesMailBean.envoiMail(msg, sujet, patientMail, session);
 				messages.put("info", "Compte créé");
 				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 			} else {

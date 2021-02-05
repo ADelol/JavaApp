@@ -8,6 +8,7 @@
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.Patient</class>
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.RendezVous</class>
 		<class>fr.dauphine.mido.as.projetjava.entityBeans.Specialite</class>
+		<class>fr.dauphine.mido.as.projetjava.entityBeans.Utilisateur</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/projetjava"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

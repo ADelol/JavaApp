@@ -15,11 +15,13 @@ public class Patient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String emailPatient;
+	private int ID_Patient;
 
 	private String addressHabitPatient;
 
 	private int ANNEENaissance;
+
+	private String emailPatient;
 
 	private String etatP;
 
@@ -38,12 +40,12 @@ public class Patient implements Serializable {
 	public Patient() {
 	}
 
-	public String getEmailPatient() {
-		return this.emailPatient;
+	public int getID_Patient() {
+		return this.ID_Patient;
 	}
 
-	public void setEmailPatient(String emailPatient) {
-		this.emailPatient = emailPatient;
+	public void setID_Patient(int ID_Patient) {
+		this.ID_Patient = ID_Patient;
 	}
 
 	public String getAddressHabitPatient() {
@@ -60,6 +62,14 @@ public class Patient implements Serializable {
 
 	public void setANNEENaissance(int ANNEENaissance) {
 		this.ANNEENaissance = ANNEENaissance;
+	}
+
+	public String getEmailPatient() {
+		return this.emailPatient;
+	}
+
+	public void setEmailPatient(String emailPatient) {
+		this.emailPatient = emailPatient;
 	}
 
 	public String getEtatP() {
