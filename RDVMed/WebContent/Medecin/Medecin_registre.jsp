@@ -139,41 +139,56 @@ a:active{
 		
     </div>
 
-<form action="/RDVMed/ServletCreationPatient"  method="post" onsubmit="return checkForm(this)" >
+<form action="/RDVMed/ServletCreationMedecin"  method="post" onsubmit="return checkForm(this)" >
 <div class="reg">
 <br>
 
 <div class="ins"><p class="p1">INSCRIPTION</p></div>
 
-<div class="regD"><p class="p2">Email:<input type="text" name="emailP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Mail" /></p>
+<div class="regD"><p class="p2">Email:<input type="text" name="email" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Mail" /></p>
 </div>
 <span class="error">${messages.mail}</span>
 
 
-<div class="regD"><p class="p2">Nom:<input type="text" name="patientnom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre NOM" /></p>
+<div class="regD"><p class="p2">Nom:<input type="text" name="medecinnom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre NOM" /></p>
 </div>
 <span class="error">${messages.nom}</span>
-<div class="regD"><p class="p2">Prenom:<input type="text" name="patientprenom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre Prenom" /></p>
+<div class="regD"><p class="p2">Prenom:<input type="text" name="medecinprenom" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="votre Prenom" /></p>
 </div>
 <span class="error">${messages.prenom}</span>
 
 
 
-<div class="regD"><p class="p2">Telephone:<input type="text" name="phoneP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Numero de Tel" /></p>
+<div class="regD"><p class="p2">Telephone:<input type="text" name="phone" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Numero de Tel" /></p>
 
 </div>
 <span class="error">${messages.tel}</span>
-<div class="regD"><p class="p2">Adresse:<input type="text" name="adresseP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Habitation" /></p>
+<div class="regD"><p class="p2">Adresse:<input type="text" name="adresse" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Adresse Habitation" /></p>
 
 </div>
 
 
 
-<div class="regD"><p class="p2">Password:<input type="password" name="mdpP" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Mot de passe" /></p>
+<div class="regD"><p class="p2">Mot de passe :<input type="password" name="mdp" autocomplete="off" onfocus="FocusItem(this)" onblur="CheckItem(this)" placeholder="Mot de passe" /></p>
 
 </div>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
+Sélectionner le nom d'un centre :
+<select name="centreList">
+    <c:forEach var="c" items="${centres}">
+        <option value="${c.ID_CentreMedecin}" > ${c.nomCentreMedecin}</option>
+    </c:forEach>
+</select>
+
+Sélectionner une spécialité :
+<select name="specialiteList">
+    <c:forEach var="s" items="${specialites}">
+        <option value="${s.ID_Specialite}" > ${s.NOM_Specialite}</option>
+    </c:forEach>
+</select>
 
 </div>
 

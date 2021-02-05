@@ -1,6 +1,7 @@
 package fr.dauphine.mido.as.projetjava.servlets;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -67,7 +68,7 @@ public class ServletCreationMedecin extends HttpServlet {
 		Map<String, String> messages = new HashMap<String, String>();
 		request.setAttribute("messages", messages);
 
-		String medecinMail = request.getParameter("emailP");
+		String medecinMail = request.getParameter("email");
 		if (!Utilitaires.isMail(medecinMail)) {
 			messages.put("mail", "Format mail incorrect");
 			System.out.println("Format mail incorrect");
@@ -82,14 +83,24 @@ public class ServletCreationMedecin extends HttpServlet {
 			messages.put("prenom", "Prenom non alpha");
 			System.out.println("cprenom non alpha");
 		}
-		String medecinTel = request.getParameter("phoneP");
+		String medecinTel = request.getParameter("phone");
 		if (!Utilitaires.isTelNumber(medecinTel)) {
 			messages.put("tel", "format tel incorrect");
 			System.out.println("format tel incorrect");
 		}
-		String medecinAdr = request.getParameter("adresseP");
+		String medecinAdr = request.getParameter("adresse");
 
-		String medecinMDP = request.getParameter("mdpP");
+		String medecinMDP = request.getParameter("mdp");
+		
+		Enumeration e = request.getParameterNames();
+		while(e.hasMoreElements()){
+		     String name = (String)e.nextElement();
+		     if(name.startsWith("centre")){
+		        String value = request.getParameter(name);
+		        System.out.println(value);
+		     }
+
+		}
 
 		Medecin m = new Medecin();
 		m.setEMAIL_Medecin(medecinMail);
@@ -122,10 +133,10 @@ public class ServletCreationMedecin extends HttpServlet {
 					message.setContent(msg, "text/plain; charset=UTF-8");
 					Transport.send(message);
 					System.out.println("Message sent successfully");
-				} catch (AddressException e) {
-					e.printStackTrace();
-				} catch (MessagingException e) {
-					e.printStackTrace();
+				} catch (AddressException e1) {
+					e1.printStackTrace();
+				} catch (MessagingException e2) {
+					e2.printStackTrace();
 				}
 
 				messages.put("info", "Compte créé");
