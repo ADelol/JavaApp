@@ -1,7 +1,5 @@
 package fr.dauphine.mido.as.projetjava.dao;
 
-import java.util.Map;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,19 +13,20 @@ import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 
 public class PatientDAO {
 
-
+	//@PersistenceUnit
+	//private EntityManagerFactory emf;
 	
 	public  void ajouterPatient(Patient p) {
-
+		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
-			Map<String,Object> s = emf.getProperties();
-			System.out.println(s);
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			em.persist(p);
 			et.commit();
-
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Patient getPatient(String mail) {
