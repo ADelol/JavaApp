@@ -14,15 +14,13 @@ public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int userId;
+	private String username;
 
 	private int ID_Medecin;
 
 	private int ID_patient;
 
 	private String mdp;
-
-	private String userEmail;
 
 	private String userEtat;
 
@@ -31,12 +29,12 @@ public class Utilisateur implements Serializable {
 	public Utilisateur() {
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public int getID_Medecin() {
@@ -61,14 +59,6 @@ public class Utilisateur implements Serializable {
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
-	}
-
-	public String getUserEmail() {
-		return this.userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
 	}
 
 	public String getUserEtat() {

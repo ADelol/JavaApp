@@ -7,6 +7,7 @@
 <title>Page de connexion</title>
 </head>
 <style>
+
 body {
 	background-image:url('/PriseRDVMed/images/image1.png');
 	background-size:100%;
@@ -138,32 +139,34 @@ a:active{
 			  text-decoration: underline; }
 .logBar .ins { float: left; }
 .logBar .forget { float: right; }
-
+	
 </style>
 
 <body>
-<form action="login" method="post">
+
 <div class="header">
         <ul>
-         <li><a href="/PriseRDVMed/Patient/Patient_registre.jsp">S'enregistrer</a></li>
+         <li><a href="/RDVMed/Patient/Patient_registre.jsp">Inscription patient</a></li>
+         <li><a href="/RDVMed/Accueil.jsp">Accueil</a></li>
 		</ul>
 		
     </div>
 	
 	
 	
-	
+<form action="/RDVMed/ServletLogin" method="post">	
 	<div class="logGet">
 	 <div class="log"><p class="p1">CONNEXION</p></div>
 	 <div class="logD">
-		<input id="username" type="text" autocomplete="off" placeholder="Adresse mail" />
+		<input id="username" name="email"  type="text" autocomplete="off" placeholder="Adresse mail" />
 	 </div>
+	 
 	 <div class="logD">
-		<input id="password" type="text" autocomplete="off" placeholder="Mot de passe" />
+		<input id="password" name="mdp"  type="text" autocomplete="off" placeholder="Mot de passe" />
 	 </div>
 	 <div class="logD"><input type="submit" value="CONNECTER" id="submit"></div>
 	 
-
+<span class="erreurLogin">${erreurLogin}</span>
 	 <div class="logBar">
 	    <a class="ins" href="/PriseRDVMed/Patient/Patient_registre.jsp"> S'inscrire</a>
 		 </div>

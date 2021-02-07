@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,25 +81,32 @@ a:active {
 	color: white;
 }
 </style>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body>
 	<div class="total">
 		<div class="header">
 			<ul>
-				<li><a href="/RDVMed/Patient/Patient_login.jsp">PATIENT</a></li>
-				<li><a href="/RDVMed/Administrateur/Admin_login.jsp">ADMIN</a></li>
-				<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Créer médecin</a></li>
-				<li><a href="/RDVMed/Patient/Patient_registre.jsp">S'INSCRIRE</a></li>
+				<c:if test="${utilisateur.userRole eq 'Administrateur'}">
+					<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Créer médecin</a></li>
+				</c:if>
+				<c:if test="${utilisateur==null}">
+					<li><a href="/RDVMed/Patient/Patient_registre.jsp">Inscription patient</a></li>
+				</c:if>
+				<c:choose>
+					<c:when test="${utilisateur==null}">
+						<li><a href="/RDVMed/Login.jsp">Se connecter</a></li>
+					</c:when>
+					<c:otherwise>Bonjour ${prenom} ${nom}
+				<li><a href="/RDVMed/ServletLogout">Se déconnecter</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 			<h1>Bienvenu! Vous etes chez DoctorHouse</h1>
 			<img src="/RDVMed/images/doctor.png" alt="Paris">
 		</div>
 	</div>
-	<form action="/RDVMed" method="post">
-	<p>Connexion à l'application </p>
-		Email:<input type="email" name="email" /><br /> <br /> Mot de
-		passe:<input type="password" name="password" /><br /> <br /> <input
-			type="submit" />"
-	</form>
+
 	<span class="info">${messages.info}</span>
 </body>
 </html>

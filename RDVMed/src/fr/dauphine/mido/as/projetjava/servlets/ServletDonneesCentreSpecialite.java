@@ -43,13 +43,14 @@ public class ServletDonneesCentreSpecialite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		List<CentreMedical> centres = servicesCentreMedicalBean.getAllCentreMedical();
 		List<Specialite> specialites = servicesSpecialiteBean.getAllSpecialites();
 		request.setAttribute("centres", centres);
 		request.setAttribute("specialites", specialites);
 		request.setAttribute("test", "test");
 		System.out.println(centres);
-		getServletContext().getRequestDispatcher("/Medecin/Medecin_registre.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/Administrateur/Medecin_registre.jsp").forward(request, response);
 	}
 
 	/**

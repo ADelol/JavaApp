@@ -29,7 +29,7 @@ public class ServicesPatientBean {
 			System.out.println("bug ?");
 			dao.ajouterPatient(p);
 			Utilisateur u = new Utilisateur();
-			u.setUserEmail(p.getEmailPatient());
+			u.setUsername(p.getEmailPatient());
 			u.setMdp(p.getMDPPatient());
 			u.setUserEtat(p.getEtatP());
 			u.setUserRole("Patient");
@@ -38,6 +38,11 @@ public class ServicesPatientBean {
 		}
 		return false;
 
+	}
+	
+	public Patient getPatient(String mail) {
+		PatientDAO dao = new PatientDAO();
+		return dao.getPatient(mail).get(0);
 	}
 
 }

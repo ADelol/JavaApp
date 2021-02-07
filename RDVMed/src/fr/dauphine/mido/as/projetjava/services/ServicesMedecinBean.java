@@ -30,7 +30,7 @@ public class ServicesMedecinBean {
 		if (dao.getMedecin(m.getEMAIL_Medecin()).isEmpty()) {
 			dao.ajouterMedecin(m);
 			Utilisateur u = new Utilisateur();
-			u.setUserEmail(m.getEMAIL_Medecin());
+			u.setUsername(m.getEMAIL_Medecin());
 			u.setMdp(m.getMDP_Medecin());
 			u.setUserEtat(m.getEtatM());
 			u.setUserRole("Medecin");
@@ -41,4 +41,8 @@ public class ServicesMedecinBean {
 
 	}
 
+	public Medecin getMedecin(String mail) {
+		MedecinDAO dao = new MedecinDAO();
+		return dao.getMedecin(mail).get(0);
+	}
 }

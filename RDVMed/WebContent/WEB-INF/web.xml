@@ -4,4 +4,60 @@
   <welcome-file-list>
     <welcome-file>Accueil.jsp</welcome-file>
 </welcome-file-list>
+
+	<session-config> 
+		<session-timeout>1</session-timeout>
+	</session-config>
+
+<!--Pas reussi a faire fonctionner l authenticate de cette maniere avec le FORM BASED authentication + config du fichier standalone.xml
+Peut-être un pb de config, ou le fait que cela soit legacy ou autre...
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Administrateur</web-resource-name>
+      <url-pattern>/Administrateur/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Administrateur</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Patient</web-resource-name>
+      <url-pattern>/Patient/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Patient</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+    <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Medecin</web-resource-name>
+      <url-pattern>/Medecin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Medecin</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>RDVMedSecu</realm-name>
+    <form-login-config>
+        <form-login-page>/Login.jsp</form-login-page>
+        <form-error-page>/Erreur.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  <security-role>
+    <role-name>Administrateur</role-name>
+  </security-role> 
+  <security-role>
+    <role-name>Patient</role-name>
+  </security-role> 
+    <security-role>
+    <role-name>Medecin</role-name>
+  </security-role> 
+--> 
+  
 </web-app>

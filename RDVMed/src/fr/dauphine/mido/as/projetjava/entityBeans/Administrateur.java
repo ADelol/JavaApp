@@ -2,7 +2,6 @@ package fr.dauphine.mido.as.projetjava.entityBeans;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 
 
 /**
@@ -16,11 +15,6 @@ public class Administrateur implements Serializable {
 
 	@Id
 	private int numAdmin;
-
-	private String addressHabitAdmin;
-
-	@Temporal(TemporalType.DATE)
-	private Date dateNaissance;
 
 	private String EMAILAdmin;
 
@@ -41,22 +35,6 @@ public class Administrateur implements Serializable {
 
 	public void setNumAdmin(int numAdmin) {
 		this.numAdmin = numAdmin;
-	}
-
-	public String getAddressHabitAdmin() {
-		return this.addressHabitAdmin;
-	}
-
-	public void setAddressHabitAdmin(String addressHabitAdmin) {
-		this.addressHabitAdmin = addressHabitAdmin;
-	}
-
-	public Date getDateNaissance() {
-		return this.dateNaissance;
-	}
-
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
 	}
 
 	public String getEMAILAdmin() {
