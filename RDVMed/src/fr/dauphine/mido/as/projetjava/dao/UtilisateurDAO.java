@@ -7,12 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 import fr.dauphine.mido.as.projetjava.entityBeans.Utilisateur;
 
 public class UtilisateurDAO {
 
-	
 	public void ajouterUtilisateur(Utilisateur u) {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
@@ -21,7 +19,8 @@ public class UtilisateurDAO {
 			et.begin();
 			em.persist(u);
 			et.commit();
-		} catch(Exception e) {
+			em.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -30,8 +29,28 @@ public class UtilisateurDAO {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			return em.createQuery("SELECT u FROM Utilisateur u where u.username = :mail AND u.mdp = :mdp")
-                    .setParameter("mail", mail).setParameter("mdp", mdp).getResultList();
+			List<Utilisateur> res = em
+					.createQuery("SELECT u FROM Utilisateur u where u.username = :mail AND u.mdp = :mdp")
+					.setParameter("mail", mail).setParameter("mdp", mdp).getResultList();
+			em.close();
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Utilisateur modifierUtilisateur(Utilisateur u) {
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			Utilisateur merged = em.merge(u);
+			et.commit();
+			em.close();
+			System.out.println("MERGED USER : " + merged.getUsername());
+			return merged;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

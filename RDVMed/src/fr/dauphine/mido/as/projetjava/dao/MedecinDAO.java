@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Medecin;
-import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 
 public class MedecinDAO {
 
@@ -20,6 +19,7 @@ public class MedecinDAO {
 			et.begin();
 			em.persist(m);
 			et.commit();
+			em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,8 +29,23 @@ public class MedecinDAO {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			return em.createQuery("SELECT m FROM Medecin m where m.EMAIL_Medecin = :mail")
-                    .setParameter("mail", mail).getResultList();
+			List<Medecin> res = em.createQuery("SELECT m FROM Medecin m where m.EMAIL_Medecin = :mail")
+					.setParameter("mail", mail).getResultList();
+			em.close();
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Medecin modifierMedecin(Medecin m) {
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
+			EntityManager em = emf.createEntityManager();
+			Medecin merged = em.merge(m);
+			em.close();
+			return merged;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

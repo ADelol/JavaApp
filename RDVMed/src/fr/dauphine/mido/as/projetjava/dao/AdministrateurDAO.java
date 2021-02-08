@@ -8,8 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Administrateur;
-import fr.dauphine.mido.as.projetjava.entityBeans.Medecin;
-import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 
 public class AdministrateurDAO {
 
@@ -21,6 +19,7 @@ public class AdministrateurDAO {
 			et.begin();
 			em.persist(a);
 			et.commit();
+			em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -30,8 +29,10 @@ public class AdministrateurDAO {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			return em.createQuery("SELECT a FROM Administrateur a where a.EMAILAdmin = :mail")
-                    .setParameter("mail", mail).getResultList();
+			List<Administrateur> res = em.createQuery("SELECT a FROM Administrateur a where a.EMAILAdmin = :mail")
+					.setParameter("mail", mail).getResultList();
+			em.close();
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

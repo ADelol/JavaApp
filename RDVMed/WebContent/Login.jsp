@@ -164,7 +164,7 @@ a:active{
 	 <div class="logD">
 		<input id="password" name="mdp"  type="text" autocomplete="off" placeholder="Mot de passe" />
 	 </div>
-	 <div class="logD"><input type="submit" value="CONNECTER" id="submit"></div>
+	 <div class="logD"><input type="submit" value="Connexion" id="submit"></div>
 	 
 <span class="erreurLogin">${erreurLogin}</span>
 	 <div class="logBar">

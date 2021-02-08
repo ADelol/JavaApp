@@ -6,7 +6,7 @@
 </welcome-file-list>
 
 	<session-config> 
-		<session-timeout>1</session-timeout>
+		<session-timeout>100</session-timeout>
 	</session-config>
 
 <!--Pas reussi a faire fonctionner l authenticate de cette maniere avec le FORM BASED authentication + config du fichier standalone.xml

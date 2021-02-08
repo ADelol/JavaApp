@@ -35,7 +35,7 @@ public class ServicesMailBean {
 
 	public boolean envoiMail(String msg, String sujet, String dest, HttpSession session) {
 		Properties properties = new Properties();
-		properties.put("mail.smtp.host",SOURCE);
+		properties.put("mail.smtp.host", SOURCE);
 		properties.put("mail.smtp.port", PORT);
 		Session sessionMail = Session.getInstance(properties);
 		Message message = new MimeMessage(sessionMail);
@@ -44,7 +44,7 @@ public class ServicesMailBean {
 			message.setFrom(new InternetAddress(APPMAIL));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(dest));
 			try {
-				message.setSubject(MimeUtility.encodeText("Création de compte RDVMed", "utf-8", "B"));
+				message.setSubject(MimeUtility.encodeText(sujet, "utf-8", "B"));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}

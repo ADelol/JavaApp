@@ -4,12 +4,9 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 
-
-
-import fr.dauphine.mido.as.projetjava.dao.PatientDAO;
 import fr.dauphine.mido.as.projetjava.dao.UtilisateurDAO;
-import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 import fr.dauphine.mido.as.projetjava.entityBeans.Utilisateur;
 
 /**
@@ -19,13 +16,15 @@ import fr.dauphine.mido.as.projetjava.entityBeans.Utilisateur;
 @LocalBean
 public class ServicesUtilisateurBean {
 
-    /**
-     * Default constructor. 
-     */
-    public ServicesUtilisateurBean() {
-        // TODO Auto-generated constructor stub
-    }
-    
+	/**
+	 * Default constructor.
+	 */
+
+	public ServicesUtilisateurBean() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Transactional
 	public Utilisateur getUtilisateur(String mail, String mdp) {
 		UtilisateurDAO dao = new UtilisateurDAO();
 		List<Utilisateur> listUtilisateurs = dao.getUtilisateur(mail, mdp);

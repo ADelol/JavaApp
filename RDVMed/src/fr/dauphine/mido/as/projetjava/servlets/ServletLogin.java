@@ -1,8 +1,6 @@
 package fr.dauphine.mido.as.projetjava.servlets;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -30,13 +28,13 @@ public class ServletLogin extends HttpServlet {
 
 	@EJB
 	ServicesUtilisateurBean servicesUtilisateurBean;
-	
+
 	@EJB
 	ServicesAdministrateurBean servicesAdministrateurBean;
-	
+
 	@EJB
 	ServicesPatientBean servicesPatientBean;
-	
+
 	@EJB
 	ServicesMedecinBean servicesMedecinBean;
 
@@ -58,37 +56,39 @@ public class ServletLogin extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("erreurLogin", "");
-		
+
 		String mail = request.getParameter("email");
 		String mdp = request.getParameter("mdp");
 		System.out.println("aaaaaa");
 		System.out.println(mail);
 		System.out.println(mdp);
-		Utilisateur u = servicesUtilisateurBean.getUtilisateur(mail,mdp);
+		Utilisateur u = servicesUtilisateurBean.getUtilisateur(mail, mdp);
 
-		if(u == null || u.getUserEtat().equals("Inactif")) {
+		if (u == null || u.getUserEtat().equals("Supprime")) {
 			session.setAttribute("erreurLogin", "Les identifiants sont incorrects");
 			response.sendRedirect("/RDVMed/Login.jsp");
-		}
-		else {
+		} else {
 			session.setAttribute("utilisateur", u);
-			if(u.getUserRole().equals("Administrateur")) {
+			if (u.getUserRole().equals("Administrateur")) {
 				Administrateur a = servicesAdministrateurBean.getAdministrateur(mail);
+				session.setAttribute("administrateur", a);
 				session.setAttribute("prenom", a.getPRENOMAdmin());
 				session.setAttribute("nom", a.getNOMAdmin());
-			}
-			else if(u.getUserRole().equals("Patient")){
+			} else if (u.getUserRole().equals("Patient")) {
 				Patient a = servicesPatientBean.getPatient(mail);
+				session.setAttribute("patient", a);
 				session.setAttribute("prenom", a.getPRENOMPatient());
 				session.setAttribute("nom", a.getNOMPatient());
-			} 
-			else if(u.getUserRole().equals("Medecin")) {
+			} else if (u.getUserRole().equals("Medecin")) {
 				Medecin a = servicesMedecinBean.getMedecin(mail);
+				session.setAttribute("medecin", a);
 				session.setAttribute("prenom", a.getPRENOM_Medecin());
 				session.setAttribute("nom", a.getNOM_Medecin());
 			}

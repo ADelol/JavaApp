@@ -82,13 +82,24 @@ a:active {
 }
 </style>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <body>
+
 	<div class="total">
 		<div class="header">
 			<ul>
+
+				<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<c:if test="${utilisateur.userRole eq 'Administrateur'}">
 					<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Créer médecin</a></li>
+				</c:if>
+				<c:if test="${utilisateur.userRole eq 'Patient'}">
+					<li><a href="/RDVMed/Patient/GestionCompte.jsp">Gestion de compte patient</a></li>
+					<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Créer un rendez-vous</a></li>
+					<li><a href="/RDVMed/ServletDonneesCentreSpecialite">Visualiser ses rendez-vous</a></li>
+				</c:if>
+				<c:if test="${utilisateur.userRole eq 'Medecin'}">
+					<li><a href="/RDVMed/Medecin/GestionCompte.jsp">Gestion de compte médecin</a></li>
+					<li><a href="/RDVMed/Medecin/Agenda.jsp">Gestion des agendas</a></li>
 				</c:if>
 				<c:if test="${utilisateur==null}">
 					<li><a href="/RDVMed/Patient/Patient_registre.jsp">Inscription patient</a></li>

@@ -39,10 +39,34 @@ public class ServicesPatientBean {
 		return false;
 
 	}
-	
+
 	public Patient getPatient(String mail) {
 		PatientDAO dao = new PatientDAO();
 		return dao.getPatient(mail).get(0);
+	}
+
+	public Patient modifierPatient(Patient p, String ancienMail, String ancienMDP) {
+		PatientDAO dao = new PatientDAO();
+		UtilisateurDAO daoU = new UtilisateurDAO();
+		Patient patientModif = dao.modifierPatient(p);
+		if (patientModif != null) {
+			Utilisateur u = daoU.getUtilisateur(ancienMail, ancienMDP).get(0);
+			u.setUsername(patientModif.getEmailPatient());
+			u.setMdp(patientModif.getMDPPatient());
+			Utilisateur utilModif = daoU.modifierUtilisateur(u);
+			System.out.println(utilModif.getUsername());
+		}
+		return patientModif;
+
+	}
+
+	public void supprimerPatient(Patient p, Utilisateur u) {
+		PatientDAO dao = new PatientDAO();
+		UtilisateurDAO daoU = new UtilisateurDAO();
+		p.setEtatP("Supprime");
+		u.setUserEtat("Supprime");
+		dao.modifierPatient(p);
+		daoU.modifierUtilisateur(u);
 	}
 
 }

@@ -131,7 +131,7 @@ a:active{
 <div class="header">
        <ul>
        <li><a href="/RDVMed/Accueil.jsp">Accueil</a></li>
-         <li><a href="/RDVMed/Patient/Patient_registre.jsp">S'INSCRIRE</a></li>
+         <li><a href="/RDVMed/Login.jsp">Se connecter</a></li>
 		</ul>
 		
     </div>

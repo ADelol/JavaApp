@@ -14,7 +14,7 @@ public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String username;
+	private int userId;
 
 	private int ID_Medecin;
 
@@ -24,17 +24,19 @@ public class Utilisateur implements Serializable {
 
 	private String userEtat;
 
+	private String username;
+
 	private String userRole;
 
 	public Utilisateur() {
 	}
 
-	public String getUsername() {
-		return this.username;
+	public int getUserId() {
+		return this.userId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getID_Medecin() {
@@ -67,6 +69,14 @@ public class Utilisateur implements Serializable {
 
 	public void setUserEtat(String userEtat) {
 		this.userEtat = userEtat;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getUserRole() {

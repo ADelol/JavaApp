@@ -3,18 +3,8 @@ package fr.dauphine.mido.as.projetjava.servlets;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.ejb.EJB;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +26,7 @@ public class ServletCreationPatient extends HttpServlet {
 
 	@EJB
 	ServicesPatientBean servicesPatientBean;
-	
+
 	@EJB
 	ServicesMailBean servicesMailBean;
 
@@ -106,7 +96,6 @@ public class ServletCreationPatient extends HttpServlet {
 		p.setNumTelePatient(patientTel);
 		p.setAddressHabitPatient(patientAdr);
 		p.setANNEENaissance(patientYear);
-		System.out.println("MDPP ??" + patientMDP);
 		p.setMDPPatient(patientMDP);
 		p.setEtatP("Actif");
 
@@ -116,7 +105,7 @@ public class ServletCreationPatient extends HttpServlet {
 
 			if (patientCree) {
 				// Envoi mail à mettre dans une classe à part ?
-				
+
 				String sujet = "Création de compte RDVMed";
 				String msg = "Bonjour " + patientPrenom + " , un compte a été créé avec votre email : " + patientMail;
 				servicesMailBean.envoiMail(msg, sujet, patientMail, session);
