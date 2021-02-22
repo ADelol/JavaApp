@@ -72,14 +72,11 @@ public class ServletLogin extends HttpServlet {
 			session.setAttribute("erreurLogin", "Les identifiants sont incorrects");
 		} else {
 			session.setAttribute("utilisateur", u);
-			System.out.println(u.getUserRole() + "uuuuu");
-			if (u.getUserRole().equals("\"Administrateur\"")) {
+			if (u.getUserRole().equals("Administrateur")) {
 				Administrateur a = servicesAdministrateurBean.getAdministrateur(mail);
-				System.out.println("admin???");
 				session.setAttribute("administrateur", a);
 				session.setAttribute("prenom", a.getPRENOMAdmin());
 				session.setAttribute("nom", a.getNOMAdmin());
-				response.sendRedirect("/Administrateur/Medecin_registre.jsp");
 				getServletContext().getRequestDispatcher("/Administrateur/Medecin_registre.jsp").forward(request,
 						response);
 			} else if (u.getUserRole().equals("Patient")) {
@@ -88,13 +85,13 @@ public class ServletLogin extends HttpServlet {
 				session.setAttribute("prenom", a.getPRENOMPatient());
 				session.setAttribute("nom", a.getNOMPatient());
 
-				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/Patient/GestionCompte.jsp").forward(request, response);
 			} else if (u.getUserRole().equals("Medecin")) {
 				Medecin a = servicesMedecinBean.getMedecin(mail);
 				session.setAttribute("medecin", a);
 				session.setAttribute("prenom", a.getPRENOM_Medecin());
 				session.setAttribute("nom", a.getNOM_Medecin());
-				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/GestionCompte.jsp").forward(request, response);
 			}
 
 		}
