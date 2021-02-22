@@ -16,9 +16,7 @@ public class AdministrateurDAO {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = em.getTransaction();
-			et.begin();
 			em.persist(a);
-			et.commit();
 			em.close();
 		} catch (Exception e) {
 			e.printStackTrace();

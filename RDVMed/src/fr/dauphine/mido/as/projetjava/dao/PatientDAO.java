@@ -19,10 +19,7 @@ public class PatientDAO {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = em.getTransaction();
-			et.begin();
 			em.persist(p);
-			et.commit();
 			em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,9 +46,7 @@ public class PatientDAO {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = em.getTransaction();
-			et.begin();
 			Patient merged = em.merge(p);
-			et.commit();
 			em.close();
 
 			System.out.println("MERGED USER : " + merged.getEmailPatient());

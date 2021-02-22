@@ -188,29 +188,24 @@ Sélectionner une spécialité :
 </div>
 </div>
 <button type="button" class="clonebtn">Cliquer pour ajouter une spécialité/centre médical</button><br><br>
+<input id="cpt" type="hidden"  name="cpt" value="1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 var cpt = 1;
 $(document).ready(function(){ 
     $('.clonebtn').click(function(){
-    	$("#cpt").innerHTML = cpt;
-        cpt++;
+    	$('#cpt').get(0).value++;
+    	cpt++;
         var nextDoubleList = $("#doubleListe").clone();
-        nextDoubleList.find($('select[name="specialiteList1"]')).attr('name','specialiteList'+cpt);
-    	nextDoubleList.find($('select[name="centreList1"]')).attr('name','centreList'+cpt);
+        nextDoubleList.find(('select[name="specialiteList1"]')).attr('name','specialiteList'+cpt);
+    	nextDoubleList.find(('select[name="centreList1"]')).attr('name','centreList'+cpt);
     	nextDoubleList.attr('id','doubleList'+cpt);
         nextDoubleList.appendTo($("#listes"));
 
-        $("#cpt").innerHTML = cpt;
     });
 });
 
 
-$(document).ready(function(){ 
-    $('.clonebtnn').click(function(){
-        $("div").clone().appendTo("div");
-    });
-});
 </script>
 
 

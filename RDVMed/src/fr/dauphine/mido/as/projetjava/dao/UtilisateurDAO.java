@@ -15,10 +15,7 @@ public class UtilisateurDAO {
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = em.getTransaction();
-			et.begin();
 			em.persist(u);
-			et.commit();
 			em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,9 +42,7 @@ public class UtilisateurDAO {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = em.getTransaction();
-			et.begin();
 			Utilisateur merged = em.merge(u);
-			et.commit();
 			em.close();
 			System.out.println("MERGED USER : " + merged.getUsername());
 			return merged;

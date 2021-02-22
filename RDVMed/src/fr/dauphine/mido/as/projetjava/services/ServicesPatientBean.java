@@ -22,7 +22,7 @@ public class ServicesPatientBean {
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean ajouterPatient(Patient p) {
+	public boolean ajouterPatient(Patient p) throws Exception {
 		PatientDAO dao = new PatientDAO();
 		UtilisateurDAO daoU = new UtilisateurDAO();
 		if (dao.getPatient(p.getEmailPatient()).isEmpty()) {
@@ -36,7 +36,7 @@ public class ServicesPatientBean {
 			daoU.ajouterUtilisateur(u);
 			return true;
 		}
-		return false;
+		throw new Exception();
 
 	}
 

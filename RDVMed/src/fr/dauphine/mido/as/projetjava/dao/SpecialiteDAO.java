@@ -22,4 +22,31 @@ public class SpecialiteDAO {
 		}
 		return null;
 	}
+
+	public Specialite getSpecialite(Integer integer) {
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
+			EntityManager em = emf.createEntityManager();
+			Specialite res = em.find(Specialite.class, integer);
+			em.close();
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Specialite updateSpecialite(Specialite s) {
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("RDVMed");
+			EntityManager em = emf.createEntityManager();
+			Specialite merged = em.merge(s);
+			em.close();
+			return merged;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

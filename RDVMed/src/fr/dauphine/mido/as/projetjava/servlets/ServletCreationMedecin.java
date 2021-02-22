@@ -1,12 +1,13 @@
 package fr.dauphine.mido.as.projetjava.servlets;
 
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -24,7 +25,6 @@ import javax.servlet.http.HttpSession;
 
 import fr.dauphine.mido.as.projetjava.entityBeans.Medecin;
 import fr.dauphine.mido.as.projetjava.services.ServicesMedecinBean;
-import fr.dauphine.mido.as.projetjava.services.ServicesMedecinBean;
 import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
 
 /**
@@ -34,7 +34,7 @@ import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
 public class ServletCreationMedecin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB
+	@Inject
 	ServicesMedecinBean servicesMedecinBean;
 
 	/**
@@ -91,15 +91,14 @@ public class ServletCreationMedecin extends HttpServlet {
 		String medecinAdr = request.getParameter("adresse");
 
 		String medecinMDP = request.getParameter("mdp");
-		
-		Enumeration e = request.getParameterNames();
-		while(e.hasMoreElements()){
-		     String name = (String)e.nextElement();
-		     if(name.startsWith("centre")){
-		        String value = request.getParameter(name);
-		        System.out.println(value);
-		     }
 
+		int cpt = Integer.parseInt(request.getParameter("cpt"));
+		System.out.println(cpt);
+		List<Integer> specialites = new ArrayList<Integer>();
+		List<Integer> centres = new ArrayList<Integer>();
+		for (int i = 1; i <= cpt; i++) {
+			specialites.add(Integer.parseInt(request.getParameter("specialiteList" + cpt)));
+			centres.add(Integer.parseInt(request.getParameter("centreList" + cpt)));
 		}
 
 		Medecin m = new Medecin();
@@ -112,9 +111,10 @@ public class ServletCreationMedecin extends HttpServlet {
 		m.setEtatM("Actif");
 
 		boolean medecinCree = false;
-		if (messages.isEmpty()) {
-			medecinCree = servicesMedecinBean.ajouterMedecin(m);
-
+		if (!messages.isEmpty()) {
+			System.out.println("dofoigoifgijfgijij");
+			medecinCree = servicesMedecinBean.ajouterMedecin(m, specialites, centres);
+			medecinCree = servicesMedecinBean.ajouterMedecin2(m, specialites, centres);
 			if (medecinCree) {
 				// Envoi mail à mettre dans une classe à part ?
 				Properties properties = new Properties();

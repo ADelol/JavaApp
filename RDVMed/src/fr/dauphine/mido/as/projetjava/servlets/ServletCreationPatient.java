@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.dauphine.mido.as.projetjava.controleursMetiers.ControleurPatient;
 import fr.dauphine.mido.as.projetjava.entityBeans.Patient;
 import fr.dauphine.mido.as.projetjava.services.ServicesMailBean;
-import fr.dauphine.mido.as.projetjava.services.ServicesPatientBean;
 import fr.dauphine.mido.as.projetjava.utils.Utilitaires;
 
 /**
@@ -25,7 +25,7 @@ public class ServletCreationPatient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	ServicesPatientBean servicesPatientBean;
+	ControleurPatient controleurPatient;
 
 	@EJB
 	ServicesMailBean servicesMailBean;
@@ -101,7 +101,12 @@ public class ServletCreationPatient extends HttpServlet {
 
 		boolean patientCree = false;
 		if (messages.isEmpty()) {
-			patientCree = servicesPatientBean.ajouterPatient(p);
+			try {
+				patientCree = controleurPatient.ajouterPatient(p);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			if (patientCree) {
 				// Envoi mail à mettre dans une classe à part ?
