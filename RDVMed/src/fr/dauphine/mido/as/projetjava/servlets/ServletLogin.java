@@ -66,9 +66,6 @@ public class ServletLogin extends HttpServlet {
 
 		String mail = request.getParameter("email");
 		String mdp = request.getParameter("mdp");
-		System.out.println("aaaaaa");
-		System.out.println(mail);
-		System.out.println(mdp);
 		Utilisateur u = servicesUtilisateurBean.getUtilisateur(mail, mdp);
 
 		if (u == null || u.getUserEtat().equals("Supprime")) {
