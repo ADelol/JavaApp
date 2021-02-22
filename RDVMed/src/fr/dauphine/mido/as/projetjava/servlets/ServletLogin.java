@@ -63,33 +63,40 @@ public class ServletLogin extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("erreurLogin", "");
-
+		System.out.println("AAAAAAAAAAAAAAAAAA");
 		String mail = request.getParameter("email");
 		String mdp = request.getParameter("mdp");
 		Utilisateur u = servicesUtilisateurBean.getUtilisateur(mail, mdp);
 
 		if (u == null || u.getUserEtat().equals("Supprime")) {
 			session.setAttribute("erreurLogin", "Les identifiants sont incorrects");
-			response.sendRedirect("/RDVMed/Login.jsp");
 		} else {
 			session.setAttribute("utilisateur", u);
-			if (u.getUserRole().equals("Administrateur")) {
+			System.out.println(u.getUserRole() + "uuuuu");
+			if (u.getUserRole().equals("\"Administrateur\"")) {
 				Administrateur a = servicesAdministrateurBean.getAdministrateur(mail);
+				System.out.println("admin???");
 				session.setAttribute("administrateur", a);
 				session.setAttribute("prenom", a.getPRENOMAdmin());
 				session.setAttribute("nom", a.getNOMAdmin());
+				response.sendRedirect("/Administrateur/Medecin_registre.jsp");
+				getServletContext().getRequestDispatcher("/Administrateur/Medecin_registre.jsp").forward(request,
+						response);
 			} else if (u.getUserRole().equals("Patient")) {
 				Patient a = servicesPatientBean.getPatient(mail);
 				session.setAttribute("patient", a);
 				session.setAttribute("prenom", a.getPRENOMPatient());
 				session.setAttribute("nom", a.getNOMPatient());
+
+				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 			} else if (u.getUserRole().equals("Medecin")) {
 				Medecin a = servicesMedecinBean.getMedecin(mail);
 				session.setAttribute("medecin", a);
 				session.setAttribute("prenom", a.getPRENOM_Medecin());
 				session.setAttribute("nom", a.getNOM_Medecin());
+				getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
 			}
-			getServletContext().getRequestDispatcher("/Accueil.jsp").forward(request, response);
+
 		}
 	}
 

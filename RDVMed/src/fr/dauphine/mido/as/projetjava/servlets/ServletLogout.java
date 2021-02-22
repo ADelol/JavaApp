@@ -1,6 +1,7 @@
 package fr.dauphine.mido.as.projetjava.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,7 @@ public class ServletLogout extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
-		response.sendRedirect("/RDVMed");
+		response.sendRedirect("/RDVMed/Login.jsp");
 	}
 
 	/**

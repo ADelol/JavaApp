@@ -30,7 +30,6 @@ public class ServicesUtilisateurBean {
 		List<Utilisateur> listUtilisateurs = dao.getUtilisateur(mail, mdp);
 		if (listUtilisateurs.isEmpty())
 			return null;
-		System.out.println(listUtilisateurs);
 		return listUtilisateurs.get(0);
 	}
 
